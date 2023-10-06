@@ -1,0 +1,4 @@
+
+Nome:João
+Senha:123654
+Erro capturado com sucesso
