@@ -11,7 +11,7 @@ crs = mydb.cursor()
 execsqlcmd = lambda cmd, crs: crs.execute (cmd)
 
 execcreatetable = lambda table, attrs, crs : execsqlcmd("CREATE TABLE IF NOT EXISTS  " + table + " (" + attrs + ");\n", crs)
-execcreatedatabase = lambda dbname, crs: execsqlcmd("CREATE DATABASE " + dbname + ";\n", crs)
+execcreatedatabase = lambda dbname, crs: execsqlcmd("CREATE DATABASE IF NOT EXISTS   " + dbname + ";\n", crs)
 execdropdatabase = lambda dbname, crs : execsqlcmd ("DROP DATABASE " + dbname + ";\n", crs)
 execdroptable = lambda dbname, crs : execsqlcmd ("DROP TABLE " + dbname + ";\n", crs)
 execusedatabase = lambda dbname, crs : execsqlcmd ("USE " + dbname + ";\n", crs)
@@ -32,9 +32,11 @@ execcreatetable ("jogos", "name VARCHAR (255) , dt_lanc DATE", crs)
 #inseri os usuarios
 execinsertinto ("usuarios", "name , console", "'João', 'Xbox 360'", crs)
 execinsertinto ("usuarios", "name , console", "'Pedro', 'Xbox One'", crs)
+execinsertinto ("usuarios", "name , console", "'Tiago', 'Ps4'", crs)
 #inseri os jogos - ano yyyy/mm/dd
 execinsertinto ("jogos", "name , dt_lanc", "'Minecraft', '2012/03/15'", crs)
 execinsertinto ("jogos", "name , dt_lanc", "'UltilDown', '2013/01/29'", crs)
+execinsertinto ("jogos", "name , dt_lanc", "'Lego star', '2013/02/28'", crs)
 
 #CONSULTA A TABELA USUARIOS
 execselectfromwhere ("*", "usuarios", "true", crs)
