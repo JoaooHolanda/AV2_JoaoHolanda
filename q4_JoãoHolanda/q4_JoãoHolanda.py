@@ -17,7 +17,7 @@ execdroptable = lambda dbname, crs : execsqlcmd ("DROP TABLE " + dbname + ";\n",
 execusedatabase = lambda dbname, crs : execsqlcmd ("USE " + dbname + ";\n", crs)
 execselectfromwhere = lambda attrs, table, wherecond, crs : execsqlcmd ("SELECT " + attrs + " FROM " + table + " WHERE " + wherecond + ";", crs)
 execinsertinto = lambda table, attrs, values, crs : execsqlcmd ("INSERT INTO " + table + " (" + attrs + ")" + " VALUES (" + values + ");", crs)
-
+execdeletefromwhere = lambda table, wherecond, crs: execsqlcmd("DELETE FROM " + table + " WHERE " + wherecond + ";", crs)
 
 execcreatedatabase("Joaobase", crs)
 
@@ -29,15 +29,20 @@ execcreatetable ("usuarios", "name VARCHAR (255) , console VARCHAR (255)", crs)
 #"CREATE TABLE Jogos 
 execcreatetable ("jogos", "name VARCHAR (255) , dt_lanc DATE", crs)
 
-#inseri os usuarios
+ #inseri os usuarios - só basta aplicar uma vez que o mydb.commit salva tudo!
 execinsertinto ("usuarios", "name , console", "'João', 'Xbox 360'", crs)
 execinsertinto ("usuarios", "name , console", "'Pedro', 'Xbox One'", crs)
 execinsertinto ("usuarios", "name , console", "'Tiago', 'Ps4'", crs)
-#inseri os jogos - ano yyyy/mm/dd
+# #inseri os jogos - ano yyyy/mm/dd
 execinsertinto ("jogos", "name , dt_lanc", "'Minecraft', '2012/03/15'", crs)
 execinsertinto ("jogos", "name , dt_lanc", "'UltilDown', '2013/01/29'", crs)
 execinsertinto ("jogos", "name , dt_lanc", "'Lego star', '2013/02/28'", crs)
 
+
+#deleta atraves do nome - só mudar o nome a tabela
+# execdeletefromwhere("jogos",f"name = 'Lego star'",crs)
+#salva tudo!
+mydb.commit()
 #CONSULTA A TABELA USUARIOS
 execselectfromwhere ("*", "usuarios", "true", crs)
 
@@ -55,6 +60,6 @@ print_result(res)
 
 
 #apaga as tabelas e o database ao final!se voce descomentar qualquer uma ela quebra, tem a opcao de deixar como CREATE TABLE/DATABASE IF NOT EXIST!
-execdroptable ("usuarios", crs)
-execdroptable ("jogos", crs)
-execdropdatabase ("Joaobase", crs)
+# execdroptable ("usuarios", crs)
+# execdroptable ("jogos", crs)
+# execdropdatabase ("Joaobase", crs)
